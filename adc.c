@@ -13,7 +13,7 @@ it into a usable digital value.
 
 int adc_ScaleBuffer[BUFSIZE];
 int buffindxScale = 0;
-long int getScale;
+long int scale_avg = 0;
 
 //init sensor buffer to buffsize
 void initScaleBuffer() {
