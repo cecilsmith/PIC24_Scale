@@ -4,6 +4,7 @@
 #include "conversion.h"
 #include "lcd.h"
 #include "adc.h"
+#define NUMSAMPLES 256
 
 // PIC24FJ64GA002 Configuration Bit Settings
 // CW1: FLASH CONFIGURATION WORD 1 (see PIC24 Family Reference Manual 24.1)
