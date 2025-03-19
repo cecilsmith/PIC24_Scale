@@ -38,7 +38,7 @@ void adc_init() {
     
     AD1PCFGbits.PCFG0 = 0;
     
-    AD1CON2bits.VCFG = 0b000;
+    AD1CON2bits.VCFG = 0b011;
     AD1CON3bits.ADCS = 0b00000001;
     AD1CON1bits.SSRC = 0b010;
     AD1CON3bits.SAMC = 0b0001;
