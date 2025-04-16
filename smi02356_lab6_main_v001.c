@@ -32,7 +32,7 @@
 // Set up ADC write to buffer
 void __attribute__((__interrupt__, __auto_psv__)) _ADC1Interrupt(void)
 {
-    putVal(ADC1BUF0);
+    putVal(ADC1BUFC);
     _AD1IF = 0;
 }
 
@@ -55,7 +55,9 @@ void __attribute__((__interrupt__, __auto_psv__)) _T1Interrupt(void)
 void pic24_init(void)
 {
     _RCDIV = 0;       // set frequency to 16 MHz
-    AD1PCFG = 0xFFFE; // set all pins to digital
+    AD1PCFG = 0xEFFF; // set all pins to digital except 23
+    TRISAbits.TRISA0 = 0;
+    TRISAbits.TRISA1 = 0;
 }
 
 void timer1_init(void)

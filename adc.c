@@ -11,10 +11,13 @@
 
 void adc_init(void)
 {
-    TRISAbits.TRISA0 = 1;  // set to input
-    AD1PCFGbits.PCFG0 = 0; // setup I/O
+    // TODO: Set up the reference pins to analog?
 
-    AD1CON2bits.VCFG = 0b000;   // Use AVDD (3.3V) and AVSS (0V) as max/min
+    // Initialize input for ADC
+    TRISBbits.TRISB12 = 1;  // set pin 23 to input
+    AD1PCFGbits.PCFG12 = 0; // setup I/O for pin 23
+
+    AD1CON2bits.VCFG = 0b011;   // Use external reference pins
     AD1CON3bits.ADCS = 2;       // TAD >= 75ns (Tcy=62.5ns)
     AD1CON1bits.SSRC = 0b010;   // Sample on TMR3 event
     AD1CON3bits.SAMC = 0b00001; // At least one autosample time bit
