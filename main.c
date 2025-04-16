@@ -1,6 +1,7 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <p24Fxxxx.h>
 #include "conversion.h"
 #include "lcd.h"
 #include "adc.h"
@@ -29,14 +30,16 @@
 */
 
 void pic24_init() {
-    _RCDIV=0; //set internal clock to 16MHz
-    AD1PCFG=0xFFFF; //set all pins digital
+    _RCDIV = 0; //set internal clock to 16MHz
+    AD1PCFG = 0xFFFE; //set all pins digital
 }
 
 void adc_init() {
-    TRISAbits.TRISA0 = 1;
+    TRISBbits.TRISB12 = 1; // make pin 23 analog
+    TRISAbits.TRISA0 = 1; // make pin 23 analog
+    TRISAbits.TRISA1 = 1; // make pin 23 analog
     
-    AD1PCFGbits.PCFG0 = 0;
+    AD1PCFGbits.PCFG12 = 0; // make pin 23 ADC
     
     AD1CON2bits.VCFG = 0b011;
     AD1CON3bits.ADCS = 0b00000001;
@@ -59,11 +62,11 @@ void adc_init() {
     T3CONbits.TON = 1;
     
     //Interrupt Stuff
-    IEC0bits.AD1IE = 1;
-    IFS0bits.AD1IF = 0;
-
-    IEC0bits.T1IE = 1;
-    IFS0bits.T1IF = 0;
+//    IEC0bits.AD1IE = 1;
+//    IFS0bits.AD1IF = 0;
+//
+//    IEC0bits.T1IE = 1;
+//    IFS0bits.T1IF = 0;
 }
 
 // Interrupt Function
@@ -85,15 +88,13 @@ int main(void) {
     
     char adStrScale[20];
 
-    lcd_setCursor(0,0);
-
     while (1) {
     	long int avgScale = getScaleAvg();
-        
+        lcd_setCursor(0,0);
         sprintf(adStrScale, "%6.4ld",avgScale);
         lcd_printStr(adStrScale);
 
-        delay_ms(100);
+        delay_ms(10);
     }
     return 0;
 }
