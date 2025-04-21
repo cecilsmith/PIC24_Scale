@@ -14,7 +14,7 @@ extern "C" {
 
 void initScaleBuffer();
 long int getScaleAvg();
-
+void putScaleVal(int ADCvalue);
 
 #ifdef	__cplusplus
 }

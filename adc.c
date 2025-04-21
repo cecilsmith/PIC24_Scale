@@ -1,30 +1,32 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <p24Fxxxx.h>
 #include "lcd.h" //for delay function
 
 #define BUFSIZE 128
-
+#define NUMSAMPLES 128
 /*
 This is the main ADC conversion file which takes in the 
-voltage differecne for the load scale and converts
+voltage difference for the load scale and converts
 it into a usable digital value.
 */
 
-int adc_ScaleBuffer[BUFSIZE];
+volatile unsigned long adc_ScaleBuffer[BUFSIZE];
 int buffindxScale = 0;
-long int scale_avg = 0;
+
 
 //init sensor buffer to buffsize
 void initScaleBuffer() {
     for(int i=0; i<BUFSIZE; i++) {
         adc_ScaleBuffer[i]=0;
     }
+    buffindxScale = 0;
 }
 
 //place ADC value into sensor buffer 
 void putScaleVal(int ADCvalue) {
-    adc_ScaleBuffer[buffindxScale++]=ADCvalue;
+    adc_ScaleBuffer[buffindxScale++] = ADCvalue;
     if(buffindxScale>=BUFSIZE) {
         buffindxScale = 0;
     }
@@ -32,10 +34,9 @@ void putScaleVal(int ADCvalue) {
 
 //gets average of values in buffer and returns the value 
 long int getScaleAvg() {
-    scale_avg=0;
-    for(int j=0; j<BUFSIZE; j++) {
-        scale_avg += adc_ScaleBuffer[j];
+    long int scale_sum = 0;
+    for(int j=0; j<NUMSAMPLES; j++) {
+        scale_sum += adc_ScaleBuffer[j];
     }
-    scale_avg /= BUFSIZE;
-    return scale_avg;
+    return scale_sum / NUMSAMPLES;
 }

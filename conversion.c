@@ -1,6 +1,9 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <p24Fxxxx.h>
+#include "adc.h"
+
 /*
 This file is used to take in raw ADC input values
 that are averaged and convert them into a float which 
@@ -24,7 +27,7 @@ int convWeight() {
     int currWeight = 0;
 
     //Convert raw ADC value to grams using conversion math
-    //currWeight = mavgScale
+    //currWeight = (m*avgScale)+b
 
     return currWeight;
 }

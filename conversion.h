@@ -12,11 +12,10 @@
 extern "C" {
 #endif
 
-int convWeight()
+int convWeight();
 
 #ifdef	__cplusplus
 }
 #endif
 
 #endif	/* CONVERSION_H */
-

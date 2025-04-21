@@ -1,6 +1,7 @@
 #include <xc.h>
 #include <stdio.h>    // for sprintf
 #include <stdlib.h>
+#include <p24Fxxxx.h>
 
 #define BUFSIZE 128
 #define NUMSAMPLES 256
