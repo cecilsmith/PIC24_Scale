@@ -74,9 +74,10 @@ void adc_init() {
 }
 
 //Button Init
-//void button_init() {
-//    TRISBbits.TRISB6 = 1;   //activate the RB6 port
-//}
+void button_init() {
+    TRISBbits.TRISB6 = 1;   //activate the RB6 port (button)
+    TRISBbits.TRISB7 = 0;   //activate the RB7 port (LED))
+}
 
 // Interrupt Function
 void __attribute__((__interrupt__, __auto_psv__)) _ADC1Interrupt(void) {
@@ -94,7 +95,8 @@ int main(void) {
     lcd_init();
     adc_init();
     initScaleBuffer();
-    //button_init();
+    button_init();
+    LATBbits.LATB7 = 0;// set LED to off
     long int subWeight = 0;
     
     char adStrScale[20];
@@ -106,18 +108,20 @@ int main(void) {
             //nuh uh
             avgScale = 1000;
         }
+      
+        if (PORTBbits.RB6 == 1) {
+            subWeight = avgScale;
+            LATBbits.LATB7 = 1; //Turn LED on
+            delay_ms(100);
+        }
+        
+        LATBbits.LATB7 = 0; //Turn LED off
+        long int dispScale = avgScale - subWeight;
         
         lcd_setCursor(0,0);
-        sprintf(adStrScale, "%6.4ld g",avgScale);
+        sprintf(adStrScale, "%6.4ld g",dispScale);
         lcd_printStr(adStrScale);
-
-//        if (PORTBbits.RB6 == 0) {
-//        subWeight = avgScale;
-//        }
-//        lcd_setCursor(0,0);
-//        sprintf(adStrScale, "%6.4ld g",(avgScale - subWeight));
-//        lcd_printStr(adStrScale);
-//        
+        delay_ms(100);
     }
     return 0;
 }
