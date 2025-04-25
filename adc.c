@@ -4,8 +4,8 @@
 #include <p24Fxxxx.h>
 #include "lcd.h" //for delay function
 
-#define BUFSIZE 128
-#define NUMSAMPLES 128
+#define BUFSIZE 32
+#define NUMSAMPLES 32
 /*
 This is the main ADC conversion file which takes in the 
 voltage difference for the load scale and converts
@@ -33,8 +33,8 @@ void putScaleVal(int ADCvalue) {
 }
 
 //gets average of values in buffer and returns the value 
-long int getScaleAvg() {
-    long int scale_sum = 0;
+unsigned long getScaleAvg() {
+    unsigned long scale_sum = 0;
     for(int j=0; j<NUMSAMPLES; j++) {
         scale_sum += adc_ScaleBuffer[j];
     }

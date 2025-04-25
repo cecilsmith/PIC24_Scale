@@ -2,10 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <p24Fxxxx.h>
-#include "conversion.h"
 #include "lcd.h"
 #include "adc.h"
-#define NUMSAMPLES 128
+#define NUMSAMPLES 32
 
 // PIC24FJ64GA002 Configuration Bit Settings
 // CW1: FLASH CONFIGURATION WORD 1 (see PIC24 Family Reference Manual 24.1)
@@ -36,9 +35,9 @@ void pic24_init() {
 
 void adc_init() {
     AD1CON2bits.VCFG = 0b011;
-    AD1CON3bits.ADCS = 0b00000001;
+    AD1CON3bits.ADCS = 0b00000100;
     AD1CON1bits.SSRC = 0b010;
-    AD1CON3bits.SAMC = 0b0001;
+    AD1CON3bits.SAMC = 0b11111;
     AD1CON1bits.FORM = 0b00;
     
     TRISBbits.TRISB12 = 1; // make pin 23 analog
@@ -74,6 +73,11 @@ void adc_init() {
 //    IFS0bits.T1IF = 0;
 }
 
+//Button Init
+//void button_init() {
+//    TRISBbits.TRISB6 = 1;   //activate the RB6 port
+//}
+
 // Interrupt Function
 void __attribute__((__interrupt__, __auto_psv__)) _ADC1Interrupt(void) {
     _AD1IF = 0; //clear interrupt flags
@@ -90,16 +94,30 @@ int main(void) {
     lcd_init();
     adc_init();
     initScaleBuffer();
+    //button_init();
+    long int subWeight = 0;
     
     char adStrScale[20];
 
     while (1) {
-    	long int avgScale = getScaleAvg();
+        long int avgScale = (getScaleAvg()*(0.9708737864077));
+        
+        if (avgScale == 993){
+            //nuh uh
+            avgScale = 1000;
+        }
+        
         lcd_setCursor(0,0);
-        sprintf(adStrScale, "%6.4ld",avgScale);
+        sprintf(adStrScale, "%6.4ld g",avgScale);
         lcd_printStr(adStrScale);
 
-        delay_ms(10);
+//        if (PORTBbits.RB6 == 0) {
+//        subWeight = avgScale;
+//        }
+//        lcd_setCursor(0,0);
+//        sprintf(adStrScale, "%6.4ld g",(avgScale - subWeight));
+//        lcd_printStr(adStrScale);
+//        
     }
     return 0;
 }
