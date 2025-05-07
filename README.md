@@ -7,7 +7,6 @@ This EE3951W Junior Design Project featured a PIC24 microcontroller combined wit
 ![Scale Cover On](./docs/img/scale_cover_on.jpg)
 ![Scale Cover Off](./docs/img/scale_cover_off.jpg)
 
-
 <!--
 <html>
 <head>
@@ -31,6 +30,10 @@ This EE3951W Junior Design Project featured a PIC24 microcontroller combined wit
 <!-- https://github.com/keithclark/3d-model-element/blob/master/readme.md>-->
 
 Our strain gauge scale incorporated a WWZMDiB full-bridge strain gauge, an LT6370 instrumentation amplifier, and a PIC24 microcontroller for signal processing. This instrumentation amplifier was chosen because of the large gain range (1 to 10,000 V/V), a small (50 µV) input offset voltage, and a low (100 dB) minimum common-mode rejection ratio. The ADC on the PIC24 was used as the 10-bit accuracy was enough for gram distinction. An LCD display (I2C interface) displayed the measured weight in near-real time, and the device featured a tare function to account for container weight. The PCB was housed in a custom 3D-printed enclosure, and power was supplied via Micro USB with a 3.3V voltage regulator.
+
+## Schematic
+
+![Schematic](./docs/img/schematic.png)
 
 
 ## Parts List
