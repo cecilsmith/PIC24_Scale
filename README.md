@@ -8,6 +8,7 @@ This EE3951W Junior Design Project featured a PIC24 microcontroller combined wit
 ![Scale Cover Off](./docs/img/scale_cover_off.jpg)
 
 
+<!--
 <html>
 <head>
   <style>
@@ -25,7 +26,7 @@ This EE3951W Junior Design Project featured a PIC24 microcontroller combined wit
   <script src="js/three-obj-loader.min.js"></script>
   <script src="js/model-element.min.js"></script>
 </body>
-</html>
+</html> -->
 
 <!-- https://github.com/keithclark/3d-model-element/blob/master/readme.md>-->
 
