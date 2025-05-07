@@ -73,3 +73,12 @@ Our strain gauge scale incorporated a WWZMDiB full-bridge strain gauge, an LT637
 | Test Point                                  | Keystone           | 5001                | Test Points                              | 10       | $0.29         |
 | -                                           | -                  | -                   | -                                        | -        | -             |
 | <b>Total Cost Estimate (Excluding PCB):</b> | -                  | -                   | -                                        | -        | <b>$37.62</b> |
+
+
+## References
+
+PIC24 Models: https://www.digikey.com/en/models/1228585
+
+[PIC24 Datasheet](./docs/datasheets/PIC24.pdf)
+
+PIC24 Digikey Link: https://www.digikey.com/en/products/detail/microchip-technology/PIC24FJ64GA002-I-SP/1228585
